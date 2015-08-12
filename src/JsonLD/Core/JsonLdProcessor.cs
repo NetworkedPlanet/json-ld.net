@@ -338,6 +338,16 @@ namespace JsonLD.Core
             )
         {
             RDFDataset dataset = parser.Parse(input);
+            return FromRDF(dataset, options);
+        }
+
+        public static JToken FromRDF(RDFDataset dataset)
+        {
+            return FromRDF(dataset, new JsonLdOptions(string.Empty));
+        }
+
+        public static JToken FromRDF(RDFDataset dataset, JsonLdOptions options)
+        {
             // convert from RDF
             JToken rval = new JsonLdApi(options).FromRDF(dataset);
             // re-process using the generated context if outputForm is set
